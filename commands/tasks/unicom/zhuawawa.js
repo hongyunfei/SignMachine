@@ -4,12 +4,12 @@ let { encryptPhone, sign, encrypt } = require("./handlers/PAES.js");
 const { useragent, randomNumber } = require("./handlers/myPhone");
 const gameEvents = require("./handlers/dailyEvent");
 let { transParams } = require("./handlers/gameUtils");
-let ingotsPage = {
+let zhuawawa = {
   doTask: async (axios, options) => {
     console.log("😒 抓娃娃机开始...");
-    let cookies = await ingotsPage.getOpenPlatLine(axios, options);
-    let info = await ingotsPage.postIndexInfo(axios, options, cookies);
-    await ingotsPage.postGame(axios, options, cookies, info);
+    let cookies = await zhuawawa.getOpenPlatLine(axios, options);
+    let info = await zhuawawa.postIndexInfo(axios, options, cookies);
+    await zhuawawa.postGame(axios, options, cookies, info);
   },
   postIndexInfo: async (axios, options, { ecs_token, searchParams, jar1 }) => {
     let phone = encryptPhone(options.user, "gb6YCccUvth75Tm2");
@@ -140,7 +140,7 @@ let ingotsPage = {
         for (let i of result.data.data) {
           console.log("😒 抓娃娃机获得: ", i["goodsName"]);
           if (i["goodsImg"] != null && i["doubleNum"] != null) {
-            await ingotsPage.postGameDouble(axios, options);
+            await zhuawawa.postGameDouble(axios, options);
             console.log("等待35秒再继续");
             await new Promise((resolve, reject) =>
               setTimeout(resolve, 35 * 1000)
@@ -242,11 +242,11 @@ let ingotsPage = {
 
   ),
   getOpenPlatLine: gameEvents.getOpenPlatLine(
-    `https://m.client.10010.com/mobileService/openPlatform/openPlatLine.htm?to_url=https://wxapp.msmds.cn/h5/react_web/unicom/ingotsPage?source=unicom&duanlianjieabc=tbLm0`,
+    `https://m.client.10010.com/mobileService/openPlatform/openPlatLine.htm?to_url=https://wxapp.msmds.cn/h5/react_web/unicom/grabdollPage?source=unicom&duanlianjieabc=tbKHR`,
     {
       base: "msmds",
     }
   ),
 };
 
-module.exports = ingotsPage;
+module.exports = zhuawawa;
