@@ -13,6 +13,7 @@ let zhuawawa = {
   },
   postIndexInfo: async (axios, options, { ecs_token, searchParams, jar1 }) => {
     let phone = encryptPhone(options.user, "gb6YCccUvth75Tm2");
+    let timestamp = moment().format("YYYYMMDDHHmmss");
     let result = await axios.request({
       headers: {
         "user-agent": useragent(options),
