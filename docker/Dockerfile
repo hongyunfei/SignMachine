@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-WORKDIR /AutoSignMachine/
+WORKDIR /SignMachine/
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
 RUN apk add --no-cache tzdata nodejs npm
@@ -9,8 +9,8 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 # 复制代码
 RUN npm install --registry https://registry.npm.taobao.org
 
-RUN git clone ${REPO_URL} /AutoSignMachine \
-        && cd /AutoSignMachine \
+RUN git clone ${REPO_URL} /SignMachine \
+        && cd /SignMachine \
         && git checkout mainr \
         && mkdir logs \
         && npm install
