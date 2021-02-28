@@ -7,12 +7,15 @@ RUN apk add --no-cache tzdata nodejs npm
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # 复制代码
-COPY . /AutoSignMachine/
-
 RUN npm install --registry https://registry.npm.taobao.org
 
-COPY docker/entrypoint.sh /usr/local/bin \
+RUN git clone ${REPO_URL} /AutoSignMachine \
+        && cd /AutoSignMachine \
+        && git checkout mainr \
+        && mkdir logs \
+        && npm install
+RUN cp /SignMachine/docker/entrypoint.sh /usr/local/bin \
+        && chmod +x /usr/local/bin/entrypoint.sh  
 
-RUN chmod +x /entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
 
-ENTRYPOINT /entrypoint.sh
